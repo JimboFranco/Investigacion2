@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Expresiones Regulares</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+	<div class="container col-6">
+		<h2 class="text-center mt-5">Expresiones Regulares</h2>
+		<form id="frm" action="" class="mt-5">
+			<div class="alert alert-success" id="exito">Exito! Todos los datos ingresados correctamente</div>
+			<div class="form-group">
+				<label for="nombre">Nombre:</label>
+				<input type="text" class="form-control" id="nombre" name="nombre"
+					placeholder="Ingrese su nombre completo">
+				<div class="alert alert-danger" id="errorNombre">Error: Solo letras!</div>
+			</div>
+			<div class="form-group">
+				<label for="dui">Dui:</label>
+				<input type="text" class="form-control" id="dui" name="dui" placeholder="Ingrese su Dui">
+				<div class="alert alert-danger" id="errorDui">Error de formato: ########-#</div>
+			</div>
+			<div class="form-group">
+				<label for="tel">Telefono:</label>
+				<input type="text" class="form-control" id="tel" name="tel" placeholder="Ingrese su número de telefono">
+				<div class="alert alert-danger" id="errorTel">Error de formato: ####-####</div>
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo">
+				<div class="alert alert-danger" id="errorEmail">Error de formato: ejemplo@ejemplo.com</div>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Enviar">
+
+		</form>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#exito').hide();
+			$('#errorNombre').hide();
+			$('#errorDui').hide();
+			$('#errorTel').hide();
+			$('#errorEmail').hide();
+			$('#frm').submit(function (e) {
+				e.preventDefault();
+				var flag = 0;
+				var regN = /^[a-zA-Z\s]+$/g;
+				var regD = /^\d{8}-\d{1}$/;
+				var regT = /^\d{4}-\d{4}$/;
+				var regEm = /\S+@\S+\.\S+/;;
+
+				if (regN.test($('#nombre').val())) {
+					flag += 1;
+				} else {
+					$('#errorNombre').fadeTo(2000, 500).slideUp(500, function () {
+						$('#errorNombre').slideUp(500);
+					});
+				}
+
+				if (regD.test($('#dui').val())) {
+					flag += 1;
+				} else {
+					$('#errorDui').fadeTo(2000, 500).slideUp(500, function () {
+						$('#errorDui').slideUp(500);
+					});
+				}
+
+				if (regT.test($('#tel').val())) {
+					flag += 1;
+				} else {
+					$('#errorTel').fadeTo(2000, 500).slideUp(500, function () {
+						$('#errorTel').slideUp(500);
+					});
+				}
+
+				if (regEm.test($('#email').val())) {
+					flag += 1;
+				} else {
+					$('#errorEmail').fadeTo(2000, 500).slideUp(500, function () {
+						$('#errorEmail').slideUp(500);
+					});
+				}
+
+				if (flag == 4) {
+					$('#exito').fadeTo(2000, 500).slideUp(500, function () {
+						$('#exito').slideUp(500);
+					});
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>
